@@ -1,0 +1,20 @@
+{
+	"name": "concat",
+	"subset": "opt_in",
+	"archive_path": "lib/qdm-knime/node-archives/concat_opt_in_n65",
+	"node_type": "NativeNode",
+	"is_i2b2": false,
+	"node_is_meta": "false",
+	"operation_names": ["node_text"],
+	"files": [
+		"workflow.knime"
+	],
+	"operations": {
+		"node_text": {
+			"file": "workflow.knime",
+			"xpath": "/xmlns:config/xmlns:config[@key='nodeAnnotation']/xmlns:entry[@key='text']/@value",
+			"ns": {"xmlns": "http://www.knime.org/2008/09/XMLConfig"},
+			"dest_type": "attribute"
+		}
+	}
+}

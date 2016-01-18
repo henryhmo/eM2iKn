@@ -1,0 +1,34 @@
+{
+	"map_name": "temporallyRelatedInformation",
+	"subset": "span",
+	"operation_lib": "",
+	"temporalTypes_map": {
+		"SDU": {
+			"fields": ["temporal_operator(start)", "temporal_operator(end)", "join_column_left(start)", "join_column_left(end)"],
+			"values": ["GREATER", "LESS", "STARTDATE", "STARTDATE"]
+		},
+		"EDU": {
+			"fields": ["temporal_operator(start)", "temporal_operator(end)", "join_column_left(start)", "join_column_left(end)"],
+			"values": ["GREATER", "LESS", "ENDDATE", "ENDDATE"]
+		},
+		"CONCURRENT": {
+			"fields": ["temporal_operator(start)", "temporal_operator(end)", "join_column_left(start)", "join_column_left(end)"],
+			"values": ["EQUAL", "EQUAL", "STARTDATE", "ENDDATE"]
+		},
+		"OVERLAP": {
+			"fields": ["temporal_operator(start)", "temporal_operator(end)", "join_column_left(start)", "join_column_left(end)"],
+			"values": ["GREATER", "LESS", "STARTDATE", "STARTDATE"]
+		},
+		"DURING": {
+			"fields": ["temporal_operator(start)", "temporal_operator(end)", "join_column_left(start)", "join_column_left(end)"],
+			"values": ["GREATER", "LESS", "STARTDATE", "ENDDATE"]
+		}
+	},
+	"units_map": {
+		"h": "HOUR",
+		"d": "DAY",
+		"mo": "MONTH",
+		"a": "YEAR"
+	}
+	"operators_map": {}
+}

@@ -1,0 +1,89 @@
+{
+	"name": "temporallyRelatedInformation",
+	"subset": "span",
+	"archive_path": "lib/qdm-knime/node-archives/temporal_span_63",
+	"node_type": "MetaNode",
+	"node_is_meta": "true",
+	"is_i2b2": true,
+	"operation_names": [
+		"node_text",
+		"temporal_operator(start)",
+		"temporal_operator(end)",
+		"span_operator",
+		"span_value",
+		"units",
+		"join_column_left(start)",
+		"join_column_left(right)",
+		"aggregate_operator_left",
+		"aggregate_operator_right"
+	],
+	"files": [
+		"workflow.knime",
+		"Table Creator (#27)/settings.xml",
+		"Table Creator (#56)/settings.xml",
+		"Table Creator (#57)/settings.xml"
+	],
+	"operations": {
+			"node_text": {
+				"file": "workflow.knime",
+				"xpath": "/xmlns:config/xmlns:config[@key='nodeAnnotation']/xmlns:entry[@key='text']/@value",
+				"ns": {"xmlns": "http://www.knime.org/2008/09/XMLConfig"},
+				"dest_type": "attribute"
+			},
+			"temporal_operator(start)": {
+				"file": "Table Creator (#56)/settings.xml",
+				"xpath": "/xmlns:config/xmlns:config[@key='model']/xmlns:config[@key='values']/xmlns:entry[@key='1']/@value",
+				"ns": {"xmlns": "http://www.knime.org/2008/09/XMLConfig"},
+				"dest_type": "attribute"
+			},
+			"temporal_operator(end)": {
+				"file": "Table Creator (#57)/settings.xml",
+				"xpath": "/xmlns:config/xmlns:config[@key='model']/xmlns:config[@key='values']/xmlns:entry[@key='1']/@value",
+				"ns": {"xmlns": "http://www.knime.org/2008/09/XMLConfig"},
+				"dest_type": "attribute"
+			},
+			"span_operator": {
+				"file": "Table Creator (#27)/settings.xml",
+				"xpath": "/xmlns:config/xmlns:config[@key='model']/xmlns:config[@key='values']/xmlns:entry[@key='3']/@value",
+				"ns": {"xmlns": "http://www.knime.org/2008/09/XMLConfig"},
+				"dest_type": "attribute"
+			},
+			"span_value": {
+				"file": "Table Creator (#27)/settings.xml",
+				"xpath": "/xmlns:config/xmlns:config[@key='model']/xmlns:config[@key='values']/xmlns:entry[@key='5']/@value",
+				"ns": {"xmlns": "http://www.knime.org/2008/09/XMLConfig"},
+				"dest_type": "attribute"
+			},
+			"units": {
+				"file": "Table Creator (#27)/settings.xml",
+				"xpath": "/xmlns:config/xmlns:config[@key='model']/xmlns:config[@key='values']/xmlns:entry[@key='7']/@value",
+				"ns": {"xmlns": "http://www.knime.org/2008/09/XMLConfig"},
+				"dest_type": "attribute"
+			},
+			"join_column_left(start)": {
+				"file": "Table Creator (#56)/settings.xml",
+				"xpath": "/xmlns:config/xmlns:config[@key='model']/xmlns:config[@key='values']/xmlns:entry[@key='9']/@value",
+				"ns": {"xmlns": "http://www.knime.org/2008/09/XMLConfig"},
+				"dest_type": "attribute"
+			},
+			"join_column_left(end)": {
+				"file": "Table Creator (#57)/settings.xml",
+				"xpath": "/xmlns:config/xmlns:config[@key='model']/xmlns:config[@key='values']/xmlns:entry[@key='9']/@value",
+				"ns": {"xmlns": "http://www.knime.org/2008/09/XMLConfig"},
+				"dest_type": "attribute"
+			},
+			"aggregate_operator_left": {
+				"file": "Table Creator (#27)/settings.xml",
+				"xpath": "/xmlns:config/xmlns:config[@key='model']/xmlns:config[@key='values']/xmlns:entry[@key='13']/@value",
+				"ns": {"xmlns": "http://www.knime.org/2008/09/XMLConfig"},
+				"dest_type": "attribute"
+			},
+			"aggregate_operator_right": {
+				"file": "Table Creator (#27)/settings.xml",
+				"xpath": "/xmlns:config/xmlns:config[@key='model']/xmlns:config[@key='values']/xmlns:entry[@key='15']/@value",
+				"ns": {"xmlns": "http://www.knime.org/2008/09/XMLConfig"},
+				"dest_type": "attribute"
+			}
+	}
+
+}

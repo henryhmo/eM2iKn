@@ -1,0 +1,87 @@
+{
+	"map_name": "temporallyRelatedInformation",
+	"subset": "point",
+	"operation_lib": "",
+	"temporalTypes_map": {
+		"SBS": {
+			"fields": ["temporal_operator", "join_column_left", "join_column_right"],
+			"values": ["LESS", "STARTDATE", "STARTDATE"]
+		},
+		"SBSORSCW": {
+			"fields": ["temporal_operator", "join_column_left", "join_column_right"],
+			"values": ["LESSEQUAL", "STARTDATE", "STARTDATE"]
+		},
+		"SBE": {
+			"fields": ["temporal_operator", "join_column_left", "join_column_right"],
+			"values": ["LESS", "STARTDATE", "ENDDATE"]
+		},
+		"SBEORSCWE": {
+			"fields": ["temporal_operator", "join_column_left", "join_column_right"],
+			"values": ["LESSEQUAL", "STARTDATE", "ENDDATE"]
+		},
+		"SAS": {
+			"fields": ["temporal_operator", "join_column_left", "join_column_right"],
+			"values": ["GREATER", "STARTDATE", "STARTDATE"]
+		},
+		"SASORSCW": {
+			"fields": ["temporal_operator", "join_column_left", "join_column_right"],
+			"values": ["GREATEREQUAL", "STARTDATE", "STARTDATE"]
+		},
+		"SAEORSCWE": {
+			"fields": ["temporal_operator", "join_column_left", "join_column_right"],
+			"values": ["GREATEREQUAL", "STARTDATE", "ENDDATE"]
+		},
+		"SAE": {
+			"fields": ["temporal_operator", "join_column_left", "join_column_right"],
+			"values": ["GREATER", "STARTDATE", "ENDDATE"]
+		},
+		"SCW": {
+			"fields": ["temporal_operator", "join_column_left", "join_column_right"],
+			"values": ["EQUAL", "STARTDATE", "STARTDATE"]
+		},
+		"SCWE": {
+			"fields": ["temporal_operator", "join_column_left", "join_column_right"],
+			"values": ["EQUAL", "STARTDATE", "ENDDATE"]
+		},
+
+		EBS: {
+			fields: ["temporal_operator", "join_column_left", "join_column_right"],
+			values: ["LESS", "ENDDATE", "STARTDATE"]
+		},
+		EBSORECWS: {
+			fields: ["temporal_operator", "join_column_left", "join_column_right"],
+			values: ["LESSEQUAL", "ENDDATE", "STARTDATE"]
+		},
+		EAS: {
+			fields: ["temporal_operator", "join_column_left", "join_column_right"],
+			values: ["GREATER", "ENDDATE", "STARTDATE"]
+		},
+		EASORECWS: {
+			fields: ["temporal_operator", "join_column_left", "join_column_right"],
+			values: ["GREATEREQUAL", "ENDDATE", "STARTDATE"]
+		},
+		EAE: {
+			fields: ["temporal_operator", "join_column_left", "join_column_right"],
+			values: ["GREATER", "ENDDATE", "ENDDATE"]
+		},
+		EAEORECW: {
+			fields: ["temporal_operator", "join_column_left", "join_column_right"],
+			values: ["GREATEREQUAL", "ENDDATE", "ENDDATE"]
+		},
+		ECWS: {
+			fields: ["temporal_operator", "join_column_left", "join_column_right"],
+			values: ["EQUAL", "ENDDATE", "STARTDATE"]
+		},
+		ECW: {
+			fields: ["temporal_operator", "join_column_left", "join_column_right"],
+			values: ["EQUAL", "ENDDATE", "ENDDATE"]
+		}
+	},
+	units_map: {
+		h: "HOUR",
+		d: "DAY",
+		mo: "MONTH",
+		a: "YEAR"
+	}
+	operators_map: {}
+}
