@@ -4,6 +4,7 @@
 	"archive_path": "lib/qdm-knime/node-archives/relay_67",
 	"node_type": "MetaNode",
 	"is_i2b2": false,
+	"outports": {"0": "unknown"},
 	"node_is_meta": "true",
 	"operation_names": ["node_text"],
 	"files": [

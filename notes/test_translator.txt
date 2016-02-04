@@ -1,0 +1,4 @@
+require_relative 'lib/eM2iKn/hqmf-to-ik'
+h_p = PhEMA::Em2iKn::HQMF_Project.new(open("example/cms30-v2.7.0-hqmf2.xml").read, "CMS30_foo")
+wf = h_p.get_knime_workflow
+wf.build_workflow("/Users/moh/Desktop")

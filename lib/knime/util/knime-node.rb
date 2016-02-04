@@ -13,6 +13,7 @@ module PhEMA
         @config_json["files"].each do |k|
           @knime_xmls[k] = Nokogiri::XML File.open(@config_json["archive_path"].to_s + "/" + k.to_s)
         end             # example: archive_path: "lib/qdm-knime/node-archives/and_46"
+
       end
 
       def get_config_keys
@@ -27,9 +28,9 @@ module PhEMA
             xf = op["file"]
             xnode = @knime_xmls[xf].xpath(op["xpath"], op["ns"]).first
             if xnode.class == Nokogiri::XML::Attr
-              xnode.value = v
+              xnode.value = v.to_s
             elsif xnode.class == Nokogiri::XML::Element
-              xnode.content = v
+              xnode.content = v.to_s
             end
             #puts @knime_xmls[xf].to_xml
           end
@@ -37,12 +38,16 @@ module PhEMA
       end
 
       def build_node (workflow_path, node_id)
+        #puts workflow_path
+
         folder_name_pre = @config_json["archive_path"].split(/\//)[-1]
         folder_name_post = folder_name_pre + "_(#{node_id})"
         while File.exists? workflow_path + "/" + folder_name_post
           folder_name_post = folder_name_post + "r"
         end
+
         out_dir = workflow_path + "/" + folder_name_post
+        #puts out_dir
         FileUtils.cp_r(@config_json["archive_path"], out_dir)
 
         # update setting files!!!
@@ -67,6 +72,27 @@ module PhEMA
         return @config_json["node_is_meta"]
       end
 
+      def get_outports_type(port)
+        # "0": "patient_set",
+        # "1": "encounter_set",
+        # "2": "patient_count"
+        return @config_json["outports"][port.to_s]
+      end
+
+      def get_all_outports()
+        return @config_json["outports"].keys
+      end
+
+      def find_outport(type)
+        #puts "#{type}\n"
+        #puts "#{@config_json["name"]}, #{@config_json["subset"]}\n"
+        kv = @config_json["outports"].find{|key,value| value.eql?(type.to_s)}
+        return kv.nil? ? @config_json["outports"].keys.first : kv.first
+      end
+
+      def get_config_list()
+        return @config_json["operation_names"]
+      end
 
       def get_settings_xml(file)
         return @knime_xmls[file].to_xml

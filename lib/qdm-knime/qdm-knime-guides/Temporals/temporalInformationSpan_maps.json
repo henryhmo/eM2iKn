@@ -4,24 +4,34 @@
 	"operation_lib": "",
 	"temporalTypes_map": {
 		"SDU": {
-			"fields": ["temporal_operator(start)", "temporal_operator(end)", "join_column_left(start)", "join_column_left(end)"],
-			"values": ["GREATER", "LESS", "STARTDATE", "STARTDATE"]
+			"temporal_operator(start)": "GREATER",
+			"temporal_operator(end)": "LESS",
+			"join_column_left(start)": "STARTDATE",
+			"join_column_left(end)": "STARTDATE"
 		},
 		"EDU": {
-			"fields": ["temporal_operator(start)", "temporal_operator(end)", "join_column_left(start)", "join_column_left(end)"],
-			"values": ["GREATER", "LESS", "ENDDATE", "ENDDATE"]
+			"temporal_operator(start)": "GREATER",
+			"temporal_operator(end)": "LESS",
+			"join_column_left(start)": "ENDDATE",
+			"join_column_left(end)": "ENDDATE"
 		},
 		"CONCURRENT": {
-			"fields": ["temporal_operator(start)", "temporal_operator(end)", "join_column_left(start)", "join_column_left(end)"],
-			"values": ["EQUAL", "EQUAL", "STARTDATE", "ENDDATE"]
+			"temporal_operator(start)": "EQUAL",
+			"temporal_operator(end)": "EQUAL",
+			"join_column_left(start)": "STARTDATE",
+			"join_column_left(end)": "ENDDATE"
 		},
 		"OVERLAP": {
-			"fields": ["temporal_operator(start)", "temporal_operator(end)", "join_column_left(start)", "join_column_left(end)"],
-			"values": ["GREATER", "LESS", "STARTDATE", "STARTDATE"]
+			"temporal_operator(start)": "GREATER",
+			"temporal_operator(end)": "LESS",
+			"join_column_left(start)": "STARTDATE",
+			"join_column_left(end)": "STARTDATE"
 		},
 		"DURING": {
-			"fields": ["temporal_operator(start)", "temporal_operator(end)", "join_column_left(start)", "join_column_left(end)"],
-			"values": ["GREATER", "LESS", "STARTDATE", "ENDDATE"]
+			"temporal_operator(start)": "GREATER",
+			"temporal_operator(end)": "LESS",
+			"join_column_left(start)": "STARTDATE",
+			"join_column_left(end)": "ENDDATE"
 		}
 	},
 	"units_map": {

@@ -4,6 +4,7 @@
 	"archive_path": "lib/qdm-knime/node-archives/concat_opt_in_n65",
 	"node_type": "NativeNode",
 	"is_i2b2": false,
+	"outports": {"1": "unknown"},
 	"node_is_meta": "false",
 	"operation_names": ["node_text"],
 	"files": [
@@ -11,7 +12,7 @@
 	],
 	"operations": {
 		"node_text": {
-			"file": "workflow.knime",
+			"file": "settings.xml",
 			"xpath": "/xmlns:config/xmlns:config[@key='nodeAnnotation']/xmlns:entry[@key='text']/@value",
 			"ns": {"xmlns": "http://www.knime.org/2008/09/XMLConfig"},
 			"dest_type": "attribute"

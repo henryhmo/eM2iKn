@@ -1,0 +1,3 @@
+require_relative 'lib/health-data-standards/lib/hqmf-parser'
+parser = HQMF::Parser::V2Parser.new()
+hqmf = parser.parse(open("example/cms30-v2.7.0-hqmf2.xml").read)

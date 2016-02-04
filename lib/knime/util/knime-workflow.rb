@@ -11,6 +11,8 @@ require_relative 'knime-node'
 module PhEMA
   module KNIME
     class KnimeWorkflow
+      @@wf_col_width = 200
+      @@wf_row_height = 150
 
       @@new_node_template = open('lib/knime/xml_templates/node_dom_template.erb').read
       @@new_conn_template = open('lib/knime/xml_templates/connection_dom_template.erb').read
@@ -20,36 +22,49 @@ module PhEMA
         @workflow_xml = Nokogiri::XML File.open 'lib/knime/xml_templates/root_workflow.knime'
         @knode_sn = 0;
         @kconn_sn = 0;
-        @nodes = {};    # "#{node_id}" => {"node_id" => PhEMA::KNIME::KnimeNode}
+        @nodes = {};    # {"node_id" => PhEMA::KNIME::KnimeNode}
         # data structure design: use xpath to get nodes and connections
 
         #puts @project_file.to_xml
       end
 
-      def add_knime_node(knode, x = 100 + rand(1000), y = 100 + rand(1000))
+      def add_knime_node(knode, x_coord = rand(10), y_coord = rand(10))
+        node_id = ""
+        @knode_sn = @knode_sn + 1
+
         if knode.class == PhEMA::KNIME::KnimeNode
-          @knode_sn ++;
-          node_id = @knode_sn.to_s
+          node_id = "#{@knode_sn}"
           nodes_dom = @workflow_xml.xpath("/xmlns:config/xmlns:config[@key='nodes']").first
 
           # add a block of xml to the root workflow.knime for the new node
           #new_node_template = ""
           #open('lib/knime/xml_templates/node_dom_template.erb') {|f| new_node_template = f.to_a.join}
+          # puts "x: #{x} y: #{y}"
+
+
+          x = x_coord * @@wf_col_width
+          y = y_coord * @@wf_row_height
+
           new_node_xml = Nokogiri::XML ERB.new(@@new_node_template, 0, "%<>").result(
             OpenStruct.new(
-              :node_id => node_id, :node_type => knode.get_knime_node_type, :node_is_meta => knode.get_knime_node_is_meta, :x => x.to_s, :y => y.to_s
+              :node_id => node_id,
+              :node_type => knode.get_knime_node_type,
+              :node_is_meta => knode.get_knime_node_is_meta,
+              :file_name => knode.get_knime_node_is_meta == "true" ? "workflow.knime" : "settings.xml",
+              :x => x.to_s, :y => y.to_s
             ).instance_eval {binding}
           )
+          # puts new_node_xml.to_xml
           nodes_dom.add_child(new_node_xml.root)
 
           @nodes[node_id] = knode
-          return node_id
         end
+        return node_id
       end
 
       def add_knime_connection(sourceID = "", destID = "", sourcePort = "", destPort = "")
-        @kconn_sn ++;
-        conn_id = @kconn_sn.to_s;
+        @kconn_sn = @kconn_sn + 1
+        conn_id = "#{@kconn_sn}";
         conns_dom = @workflow_xml.xpath("/xmlns:config/xmlns:config[@key='connections']").first
 
         #new_conn_template = ""
@@ -62,7 +77,10 @@ module PhEMA
             :destPort => destPort
           ).instance_eval {binding}
         )
-        nodes_dom.add_child(new_conn_xml.root)
+        #if destID.blank?
+        #  raise "destID is blank"
+        #end
+        conns_dom.add_child(new_conn_xml.root)
         return conn_id
       end
 
@@ -72,6 +90,7 @@ module PhEMA
           "/xmlns:config/xmlns:config[@key='nodes']/xmlns:config[xmlns:entry[@key='id']/@value='#{node_id}']"
         ).first
         node_dom.remove    # maybe need to handle nil
+        # TODO: remove connnections
         @nodes.delete(node_id)
       end
 
@@ -88,13 +107,38 @@ module PhEMA
           "/xmlns:config/xmlns:config[@key='nodes']/xmlns:config[xmlns:entry[@key='id']/@value='#{node_id}']"
         ).first
         x_attr_dom = node_dom.xpath(
-          "xmlns:config[@key='extrainfo.node.bounds']/xmlns:config[@key='extrainfo.node.bounds']/xmlns:entry[@key='0']/@value")
+          "xmlns:config[@key='ui_settings']/xmlns:config[@key='extrainfo.node.bounds']/xmlns:entry[@key='0']/@value"
         ).first
         y_attr_dom = node_dom.xpath(
-          "xmlns:config[@key='extrainfo.node.bounds']/xmlns:config[@key='extrainfo.node.bounds']/xmlns:entry[@key='1']/@value")
+          "xmlns:config[@key='ui_settings']/xmlns:config[@key='extrainfo.node.bounds']/xmlns:entry[@key='1']/@value"
         ).first
-        x_attr_dom.value = x
-        y_attr_dom.value = y
+        x_attr_dom.value = (x * @@wf_col_width).to_s
+        y_attr_dom.value = (y * @@wf_row_height).to_s
+        # puts node_dom.to_xml
+        # puts "x #{x} #{x_attr_dom.value}"
+        # puts "y #{y} #{y_attr_dom.value}"
+      end
+
+      def get_node_coordinator (node_id)
+        node_dom = @workflow_xml.xpath(
+          "/xmlns:config/xmlns:config[@key='nodes']/xmlns:config[xmlns:entry[@key='id']/@value='#{node_id}']"
+        ).first
+        # puts "get \n #{node_dom.to_xml}"
+        x_attr_dom = node_dom.xpath(
+          "xmlns:config[@key='ui_settings']/xmlns:config[@key='extrainfo.node.bounds']/xmlns:entry[@key='0']/@value"
+        ).first
+        y_attr_dom = node_dom.xpath(
+          "xmlns:config[@key='ui_settings']/xmlns:config[@key='extrainfo.node.bounds']/xmlns:entry[@key='1']/@value"
+        ).first
+        x_coord = x_attr_dom.value.to_i
+        y_coord = y_attr_dom.value.to_i
+        # puts "#{x_coord} #{y_coord}"
+        return {:x => x_coord / @@wf_col_width, :y => y_coord / @@wf_row_height}
+      end
+
+
+      def get_knime_node_object (node_id)
+        return @nodes[node_id]
       end
 
       def build_workflow(dest_dir)
@@ -107,20 +151,23 @@ module PhEMA
 
         FileUtils.mkdir(wf_dir);
         # puts wf_dir
-        open("#{wf_dir}/workflow.knime", "w") {|f| f.puts(@workflow_xml.to_xml) }
+
         # open("#{wf_dir}/.project", "w") {|f| f.puts(project_xml.to_xml)}
 
         # build node folders
-        @workflow_xml.xpath("/xmlns:config/xmlns:config[@key='nodes']/xmlns:config") {
+        out_workflow_xml = @workflow_xml.dup
+        out_workflow_xml.xpath("/xmlns:config/xmlns:config[@key='nodes']/xmlns:config").each {
           |node_dom|
+          #puts 'here'
           node_id = node_dom.xpath("xmlns:entry[@key='id']/@value").first.value
-          folder_name = @nodes[node_id].build_node(wf_dir)  # make the node folder
-
+          folder_name = @nodes[node_id].build_node(wf_dir, node_id)  # make the node folder
+          #puts folder_name
           # update the node_settings_file settings.xml path
           node_settings_file_attr = node_dom.xpath("xmlns:entry[@key='node_settings_file']/@value").first
           node_settings_file_attr.value = folder_name + "/" + node_settings_file_attr.value
-
+          #puts node_settings_file_attr.to_xml
         }
+        open("#{wf_dir}/workflow.knime", "w") {|f| f.puts(out_workflow_xml.to_xml) }
 
 
         # make .project file
@@ -130,9 +177,8 @@ module PhEMA
           OpenStruct.new(:project_name => @p_name).instance_eval {binding}
         )
         open("#{wf_dir}/.project", "w") {|f| f.puts(project_erb)}
-
-
         FileUtils.cp_r(wf_dir, dest_dir)
+        # puts prep_dir
         FileUtils.rm_r(prep_dir)
         #puts @project_file.to_xml
       end

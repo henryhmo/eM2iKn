@@ -5,6 +5,11 @@
 	"node_type": "MetaNode",
 	"node_is_meta": "true",
 	"is_i2b2": true,
+	"outports": {
+		"0": "patient_set",
+		"1": "encounter_set",
+		"2": "patient_count"
+	},
 	"operation_names": ["node_text", "oid_node_text", "oid_filter"],
 	"files": [
 		"workflow.knime",
