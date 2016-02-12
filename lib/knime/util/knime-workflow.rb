@@ -11,7 +11,7 @@ require_relative 'knime-node'
 module PhEMA
   module KNIME
     class KnimeWorkflow
-      @@wf_col_width = 200
+      @@wf_col_width = 150
       @@wf_row_height = 150
 
       @@new_node_template = open('lib/knime/xml_templates/node_dom_template.erb').read
@@ -23,14 +23,19 @@ module PhEMA
         @knode_sn = 0;
         @kconn_sn = 0;
         @nodes = {};    # {"node_id" => PhEMA::KNIME::KnimeNode}
+        @account_node_id = nil
         # data structure design: use xpath to get nodes and connections
-
         #puts @project_file.to_xml
+      end
+
+      def add_i2b2_account()
+        account_knode = PhEMA::KNIME::KnimeNode.new("lib/qdm-knime/qdm-knime-guides/knime_nodes/i2b2_account.json")
+        @account_node_id = add_knime_node(account_knode, 1, 1)
       end
 
       def add_knime_node(knode, x_coord = rand(10), y_coord = rand(10))
         node_id = ""
-        @knode_sn = @knode_sn + 1
+        @knode_sn += 1
 
         if knode.class == PhEMA::KNIME::KnimeNode
           node_id = "#{@knode_sn}"
@@ -59,10 +64,18 @@ module PhEMA
 
           @nodes[node_id] = knode
         end
+
+        if knode.i2b2?() && ! @account_node_id.nil?
+          add_knime_connection(@account_node_id, node_id, "1", "0")
+        end
+
         return node_id
       end
 
       def add_knime_connection(sourceID = "", destID = "", sourcePort = "", destPort = "")
+        if sourceID.blank? || destID.blank? || sourcePort.blank? || destPort.blank?
+          raise "sourceID: #{sourceID}; destID: #{destID}; sourcePort: #{sourcePort}; destPort: #{destPort}"
+        end
         @kconn_sn = @kconn_sn + 1
         conn_id = "#{@kconn_sn}";
         conns_dom = @workflow_xml.xpath("/xmlns:config/xmlns:config[@key='connections']").first

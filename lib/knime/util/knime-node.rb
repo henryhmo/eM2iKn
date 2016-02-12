@@ -67,6 +67,10 @@ module PhEMA
         return @config_json["node_type"]
       end
 
+      def i2b2?()
+        return @config_json["is_i2b2"]
+      end
+
       def get_knime_node_is_meta()
         # return node type NativeNode vs MetaNode
         return @config_json["node_is_meta"]

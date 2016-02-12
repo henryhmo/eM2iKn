@@ -22,6 +22,7 @@ module PhEMA
         @dc_col_start = 6 # data criteria starting column
 
         @count = 0
+        @concat_objs = []
 
         if hqmf_version.eql? "1.0"
           @parser = HQMF::Parser::V1Parser.new()
@@ -34,7 +35,7 @@ module PhEMA
         # value set: hqmf.all_data_criteria[1].all_code_set_oids
         # All value sets: hqmf.all_code_set_oids
         @knime = PhEMA::KNIME::KnimeWorkflow.new(project_name.empty? ? @hqmf_model.title : project_name)  #knime workflow project
-
+        @knime.add_i2b2_account()
         @source_dcs = {}  # HQMF::DataCriteria object.id => HQMF::DataCriteria object (source)
         @dc_nodes_id = {}      # HQMF::DataCriteria object.id => HQMF::DataCriteria object
         @sdc_nodes_id = {} # (source) HQMF::DataCriteria object.id => knime node id
@@ -43,15 +44,20 @@ module PhEMA
 
         @unsolved_dcs_ref = {}  # relay node ids => HQMF::DataCriteria object.id
 
-        # Deal with ource_data_criteria
+        # Deal with source_data_criteria
         @hqmf_model.source_data_criteria.each do |dc_o|
           @source_dcs[dc_o.id] = dc_o
           # Map to config file
           add_source_data_criteria(dc_o)
+          # TODO deal with labs values
+          # hqmf.source_data_criteria[50]
+
         end
 
         @sdc_derived_nodes_id.each do |dc_id, node_id|
-          # TODO deal with sdc_derived_nodes_id!
+
+          # Deal with sdc_derived_nodes_id!
+
           group_node_coord = @knime.get_node_coordinator(node_id)
           # puts "#{dc_id}, #{node_id}, #{group_node_coord}"
           # puts group_node_coord
@@ -132,6 +138,10 @@ module PhEMA
               temporal_knode = PhEMA::KNIME::KnimeNode.new(PhEMA::KNIME::QDM_KNIME_TEMPORAL_MAPPING[temp_type])
               temporal_knode.update_configs(PhEMA::KNIME::I2B2_QDM_KNIME_TEMPORAL_CONFIGS[temp_type])
               temporal_knode.update_configs("node_text" => "#{dc_o.id}\n#{temp_type}\n#{referred_id}")
+
+              # TODO teporal ranges
+              # hqmf.all_data_criteria[56].temporal_references.first.range
+
               temporal_node_id = @knime.add_knime_node(temporal_knode)
               @knime.add_knime_connection(furthest_node_id, temporal_node_id, "0", "1")
               ref_relay_node_id = add_relay_connection_forward(temporal_node_id, "2", referred_id.to_s)
@@ -147,10 +157,6 @@ module PhEMA
 
           end
 
-          # TODO: deal with lab or other attributes
-          # backward add criteria to referred source node
-          # health-data-standards lib does not support!
-          # dc_o.value ???
 
           # TODO: Group by?
 
@@ -162,13 +168,15 @@ module PhEMA
 
         end
 
-        # TODO: connect @unsolved_dcs_ref: relay node ids => HQMF::DataCriteria object.id
+        # Connect @unsolved_dcs_ref: relay node ids => HQMF::DataCriteria object.id
         @unsolved_dcs_ref.each do |relay_node_id, source_id|
           @knime.add_knime_connection(@dc_nodes_id[source_id], relay_node_id, @knime.get_knime_node_object(@dc_nodes_id[source_id]).find_outport("encounter_set"), "0")
         end
 
         # puts @dc_nodes_id.to_json
-=begin
+
+        puts "End of Data Criteria. "
+
         # deal with population_criteria
         pcs_start_col = max_dcs_col + 2
         pcs_row = 1
@@ -177,29 +185,34 @@ module PhEMA
           pop_group_id = pop_group["id"]
           pop_group_title = pop_group["title"]
           ipp_node_id = nil
+          ipp_slots = [] # node_id of relay nodes for ipp
           pop_group.each do |pop_key, pop_pointed|
             # puts pop_key.to_s
             pop_criteria = @hqmf_model.population_criteria(pop_pointed)
             unless (pop_criteria.nil?) # skip the "title" and "id"
               # Preconditions recursive
               #puts "#{pop_key}\n"
-              if ipp_node_id.nil?
-                re_hash = explore_precondition(pop_criteria, pcs_start_col, pcs_row)
-              else
-                re_hash = explore_precondition(pop_criteria, pcs_start_col, pcs_row, ipp_node_id)
-              end
+
               if pop_key.eql? "IPP"
-                ipp_node_id = re_hash[:top_node_id]
+                re_hash = explore_precondition(pop_criteria, pcs_start_col, pcs_row, false)
+                ipp_node_id = re_hash[:node_id]
+              else
+                re_hash = explore_precondition(pop_criteria, pcs_start_col, pcs_row, true)
+                ipp_slots << re_hash[:ipp_slot_id]
               end
-              # puts ipp_node_id
-              relay_node_id = add_relay_connection_backward(re_hash[:top_node_id], "0", pop_key)
-              @knime.set_node_coordinator(relay_node_id, re_hash[:x] + 1, pcs_row)
+
+              relay_node_id = add_relay_connection_backward(re_hash[:node_id], "0", pop_key)
+              @knime.set_node_coordinator(relay_node_id, pcs_start_col + 2, pcs_row)
               pcs_row = re_hash[:y] + 2
 
             end
           end
+          # Connect IPP to IPP slot in non-IPP populations
+          ipp_slots.each do |ipp_slot_id|
+              @knime.add_knime_connection(ipp_node_id, ipp_slot_id, "0", "0") # TODO fix the ports to dynamics
+          end
         end
-=end
+
         return ""
       end
 
@@ -220,6 +233,7 @@ module PhEMA
         config_map = PhEMA::KNIME::DER_KNIME_MAPPING.detect { |x|  x[:id].eql?(der_uri)}
         config_path = config_map[:knime_cofig]
         knode = PhEMA::KNIME::KnimeNode.new(config_path)
+
         knode.update_configs({
           "node_text" => "#{data_criteria_object.id}\n#{data_criteria_object.description}\n#{data_criteria_object.code_list_id}",
           "oid_node_text" => "#{data_criteria_object.title}\n#{data_criteria_object.code_list_id}",
@@ -227,7 +241,34 @@ module PhEMA
         })
         node_id = @knime.add_knime_node(knode, @sdc_col, @sdcs_row)
 
-        # TODO deal with "INTERSECT"
+
+        # Deal with labs
+        # hqmf.source_data_criteria[50].value (for CMS30)
+        value_pq = data_criteria_object.value
+        pq_config = {}
+        if (! value_pq.nil?()) && value_pq.type.eql?("IVL_PQ")
+          pq_low = value_pq.low
+          pq_high = value_pq.high
+          if ! pq_low.nil?()
+            if pq_high.nil?()  # TODO check if the unit works, especially case difference mg/dl vs mg/dL
+              pq_config["value_operator"] = pq_low.inclusive() ? "GE" : "GT"
+              pq_config["value_constraint"] = pq_low.value().to_s()
+              pq_config["value_unit_of_measure"] = pq_low.unit.to_s.downcase
+            else        # BETWEEN
+              pq_config["value_operator"] = "BETWEEN"
+              pq_config["value_constraint"] = "#{pq_low.value()} and #{pq_high.value()}"
+              pq_config["value_unit_of_measure"] = pq_low.unit.to_s.downcase
+            end
+          elsif ! pq_high.nil?()
+            pq_config["value_operator"] = pq_high.inclusive() ? "LE" : "LT"
+            pq_config["value_constraint"] = pq_high.value().to_s()
+            pq_config["value_unit_of_measure"] = pq_high.unit.to_s.downcase
+          end
+        end
+
+        knode.update_configs(pq_config)
+
+        # Deal with "INTERSECT"
         if data_criteria_object.type.eql? (:derived)
           @sdc_derived_nodes_id[data_criteria_object.id()] = node_id
         end
@@ -241,8 +282,63 @@ module PhEMA
 
       end
 
-      def explore_precondition (precondition, x_start, y_start, *ipp_node_id)
+      def explore_precondition (precondition, x_start, y_start, add_ipp)
+        # Add conjunction node
+        precond_type = precondition.conjunction_code
+        top_node_id = nil
+        current_y = y_start + 1
+        ipp_slot_id = nil
+        unless precond_type.nil?
+          concat_id = add_concats_obj(x_start, y_start)
+          if add_ipp
+            # add slot for IPP
+            ipp_relay_knode = PhEMA::KNIME::KnimeNode.new("lib/qdm-knime/qdm-knime-guides/knime_nodes/relay.json")
+            ipp_relay_knode.update_configs({"node_text" => "IPP"})
+            ipp_slot_id = @knime.add_knime_node(ipp_relay_knode, x_start + 1, current_y)
+            connect_to_concat_obj(concat_id, ipp_slot_id, "0")  # TODO fix the 0 to dynamics
+            current_y += 1
+          end
+          precond_config_lib = PhEMA::KNIME::QDM_KNIME_LOGICAL_CONJUNCTION_MAPPING[precond_type]
+          precond_knode = PhEMA::KNIME::KnimeNode.new(precond_config_lib["config_path"])
+          precond_node_id = @knime.add_knime_node(precond_knode)
+          top_node_id = precond_node_id
+          #current_y += 1
+          # Parse preconditions, and send out recursions
+          precondition.preconditions.each do |next_precondition|
+            re_hash = explore_precondition(next_precondition, x_start + 1, current_y, false)
+            source_port = 0 # TODO fix this
+            connect_to_concat_obj(concat_id, re_hash[:node_id], source_port.to_s)
+            current_y = re_hash[:y] + 1
+          end
 
+          @knime.add_knime_connection(@concat_objs[concat_id][:nodes_id][-1], precond_node_id, "1", "1")
+          @knime.set_node_coordinator(precond_node_id, x_start + @concat_objs[concat_id][:nodes_id].size, y_start)
+        end
+
+        if precondition.methods.include?(:reference) && (! precondition.reference.nil?)
+          ref_id = precondition.reference.id
+          relay_node_id = nil
+          source_node_id = @dc_nodes_id[ref_id].nil?() ? @sdc_nodes_id[ref_id] : @dc_nodes_id[ref_id]
+          unless source_node_id.nil?
+            source_port = 0 # TODO need to fix
+            relay_node_id = add_relay_connection_backward(source_node_id, source_port.to_s, ref_id)
+            @knime.set_node_coordinator(relay_node_id, x_start, current_y)
+            if top_node_id.nil?
+              top_node_id = relay_node_id
+            end
+          end
+
+          current_y += 1
+        end
+
+        # TODO parse referrence
+
+        return {:node_id =>top_node_id, :y => current_y, :ipp_slot_id => ipp_slot_id}
+      end
+
+
+      def explore_precondition_old (precondition, x_start, y_start, *ipp_node_id)
+        # TODO Delete
         # It should be a better idea to use instance variables to store outputs to the @knime
         x_max = x_start
         y_max = y_start
@@ -272,13 +368,12 @@ module PhEMA
         re_x_max = x_max  # TODO: is it good?
         re_y_max = y_max
 
-        # TODO: get precondition types
-
+        # Get precondition types
         precond_type = precondition.conjunction_code
         precond_config_lib = PhEMA::KNIME::QDM_KNIME_LOGICAL_CONJUNCTION_MAPPING[precond_type]
         #puts precond_type + "\n" + precond_config_lib.to_json + "\n"
         precondition.preconditions.each do | precond_next |
-          re_hash = explore_precondition(precond_next, x_max, y_max)
+          re_hash = explore_precondition_old(precond_next, x_max, y_max)
           nodes_id << re_hash[:top_node_id]
           # TODO undate x_max, y_max with re_coord; be aware of recursive use
         end
@@ -322,6 +417,8 @@ module PhEMA
 
         #puts "#{top_node_id}"
 
+        # TODO: return IPP slot for non-IPP pops?
+
         return {:x => x_max, :y => y_max, :top_node_id => top_node_id}
 
       end
@@ -340,6 +437,41 @@ module PhEMA
         node_id = @knime.add_knime_node(knode)
         @knime.add_knime_connection(node_id, dest_node_id, "0", dest_port)
         return node_id
+      end
+
+      def add_concats_obj(x_start, y)
+        # A concat obj is virtualize concat_opt_in with an id
+        # not exactly is a ruby object
+        co = {:nodes_id =>[], :x_start => x_start, :y => y, :connect_count => 0}  # nodes_id of concat_opt_in
+        first_concat = PhEMA::KNIME::KnimeNode.new("lib/qdm-knime/qdm-knime-guides/knime_nodes/concat_opt_in.json")
+        first_concat_id = @knime.add_knime_node(first_concat, co[:x_start] + co[:nodes_id].size, y)
+        co[:nodes_id] << first_concat_id
+        @concat_objs << co
+        co_id = @concat_objs.size - 1
+        return co_id
+      end
+
+      def connect_to_concat_obj (concat_obj_id, source_node_id, source_port)
+        # TODO check if a new concat_opt_in is needed, then add connections
+        co = @concat_objs[concat_obj_id]
+        if co[:connect_count] % 3 == 1 && co[:connect_count] > 2
+          new_concat = PhEMA::KNIME::KnimeNode.new("lib/qdm-knime/qdm-knime-guides/knime_nodes/concat_opt_in.json")
+          #puts co.to_json
+          new_concat_id = @knime.add_knime_node(new_concat, co[:x_start] + co[:nodes_id].size, co[:y])
+          @knime.add_knime_connection(co[:nodes_id][-1], new_concat_id, "1", "1")
+          co[:nodes_id] << new_concat_id
+        end
+        if co[:connect_count] > 3
+          dest_port =  co[:connect_count] % 3 + 1
+          if dest_port == 1
+            dest_port = 4
+          end
+        else
+          dest_port =  co[:connect_count] + 1
+        end
+        connect_id = @knime.add_knime_connection(source_node_id, co[:nodes_id][-1], source_port, dest_port)
+        co[:connect_count] += 1
+        return connect_id
       end
 
       def add_concatted_relays(in_nodes_id, source_outports, source_texts, x_start, y)
