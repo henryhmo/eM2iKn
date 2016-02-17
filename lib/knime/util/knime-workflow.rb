@@ -37,7 +37,7 @@ module PhEMA
         node_id = ""
         @knode_sn += 1
 
-        if knode.class == PhEMA::KNIME::KnimeNode
+        if knode.class <= PhEMA::KNIME::KnimeNode
           node_id = "#{@knode_sn}"
           nodes_dom = @workflow_xml.xpath("/xmlns:config/xmlns:config[@key='nodes']").first
 

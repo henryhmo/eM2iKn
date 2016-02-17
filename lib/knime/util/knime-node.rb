@@ -16,6 +16,14 @@ module PhEMA
 
       end
 
+      def get_knime_xml(file_key = nil)
+        key = file_key
+        if key.nil?
+          key = @config_json["files"].first()
+        end
+        return @knime_xmls[key]
+      end
+
       def get_config_keys
         return @config_json["operation_names"]
       end

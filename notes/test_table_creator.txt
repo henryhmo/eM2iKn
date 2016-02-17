@@ -1,0 +1,7 @@
+require_relative 'lib/knime/util/knime-table-creator'
+knode = PhEMA::KNIME::KnimeTableCreator.new()
+knode.set_column_properties(6, "hello")
+knode.set_value(5, 6, "hi")
+knode.set_value(5, 6, "ok")
+knode.set_value(3, 4, "hi")
+puts knode.get_knime_xml.to_xml

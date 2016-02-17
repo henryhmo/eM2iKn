@@ -3,6 +3,7 @@ require_relative '../knime/util/knime-workflow'
 require_relative '../knime/util/knime-node'
 require_relative '../phema-utils/mappings'
 require_relative '../knime/util/mappings-knime'
+require_relative '../knime/util/knime-table-creator'
 
 # test procedures in irb
 # require_relative 'lib/eM2iKn/hqmf-to-ik'
@@ -36,6 +37,26 @@ module PhEMA
         # All value sets: hqmf.all_code_set_oids
         @knime = PhEMA::KNIME::KnimeWorkflow.new(project_name.empty? ? @hqmf_model.title : project_name)  #knime workflow project
         @knime.add_i2b2_account()
+
+        @oid_knode = PhEMA::KNIME::KnimeTableCreator.new()
+        @oid_knode.set_column_properties(0, "OID")
+        @oid_knode.set_column_properties(1, "version")  # required by VSAC 2 ONT node
+        @oid_knode.set_column_properties(2, "effectiveDate")
+
+        @oid_knode.update_configs({"node_text" => "all_code_set_oids"})
+        oid_row = 0
+        @hqmf_model.all_code_set_oids.each do
+          |oid|
+          @oid_knode.set_value(oid_row, 0, oid)
+          oid_row += 1
+        end
+        @oid_node_id = @knime.add_knime_node(@oid_knode, 1, 3)
+
+        # TODO place oid to i2b2 full_path meta node, and connect to source data criteria
+        @oid2ont_knode = PhEMA::KNIME::KnimeNode.new("lib/qdm-knime/qdm-knime-guides/oids_to_i2b2_ont.json")
+        @oid2ont_node_id = @knime.add_knime_node(@oid2ont_knode, 2, 3)
+        @knime.add_knime_connection(@oid_node_id, @oid2ont_node_id, "1", "1")
+
         @source_dcs = {}  # HQMF::DataCriteria object.id => HQMF::DataCriteria object (source)
         @dc_nodes_id = {}      # HQMF::DataCriteria object.id => HQMF::DataCriteria object
         @sdc_nodes_id = {} # (source) HQMF::DataCriteria object.id => knime node id
@@ -49,7 +70,7 @@ module PhEMA
           @source_dcs[dc_o.id] = dc_o
           # Map to config file
           add_source_data_criteria(dc_o)
-          # TODO deal with labs values
+          # deal with labs values
           # hqmf.source_data_criteria[50]
 
         end
@@ -139,8 +160,35 @@ module PhEMA
               temporal_knode.update_configs(PhEMA::KNIME::I2B2_QDM_KNIME_TEMPORAL_CONFIGS[temp_type])
               temporal_knode.update_configs("node_text" => "#{dc_o.id}\n#{temp_type}\n#{referred_id}")
 
-              # TODO teporal ranges
+              # Dealing with teporal ranges
               # hqmf.all_data_criteria[56].temporal_references.first.range
+
+              range_pq = temp_ref.range
+              pq_config = {}
+
+              units_map = {
+            		"h" => "HOUR",
+            		"d" => "DAY",
+            		"mo" => "MONTH",
+            		"a" => "YEAR"
+            	}
+
+              if (! range_pq.nil?()) && range_pq.type.eql?("IVL_PQ")
+                pq_low = range_pq.low
+                pq_high = range_pq.high
+                if ! pq_low.nil?()
+                  # TODO GREATER + LESS  is difficult to implement; and it is not supported by current eMeasure tools
+                  pq_config["span_operator"] = pq_low.inclusive() ? "GREATEREQUAL" : "GREATER"
+                  pq_config["span_value"] = pq_low.value().to_s()
+                  pq_config["units"] = units_map[pq_low.unit]
+                elsif ! pq_high.nil?()
+                  pq_config["span_operator"] = pq_high.inclusive() ? "LESSEQUAL" : "LESS"
+                  pq_config["span_value"] = pq_high.value().to_s()
+                  pq_config["units"] = units_map[pq_high]
+                end
+                temporal_knode.update_configs(pq_config)
+
+              end
 
               temporal_node_id = @knime.add_knime_node(temporal_knode)
               @knime.add_knime_connection(furthest_node_id, temporal_node_id, "0", "1")
@@ -241,6 +289,11 @@ module PhEMA
         })
         node_id = @knime.add_knime_node(knode, @sdc_col, @sdcs_row)
 
+        # Connect to oid2ont_knode
+        # TODO recognize data elements rather than union or intersect
+        unless data_criteria_object.code_list_id.nil?
+          @knime.add_knime_connection(@oid2ont_node_id, node_id, "0", "1")
+        end
 
         # Deal with labs
         # hqmf.source_data_criteria[50].value (for CMS30)
