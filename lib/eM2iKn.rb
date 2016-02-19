@@ -1,3 +1,4 @@
+require 'health-data-standards'
 require "eM2iKn/version"
 
 module EM2iKn

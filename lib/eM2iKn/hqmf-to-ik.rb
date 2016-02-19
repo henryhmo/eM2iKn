@@ -1,4 +1,4 @@
-require_relative '../health-data-standards/lib/hqmf-parser'
+require 'hqmf-parser'
 require_relative '../knime/util/knime-workflow'
 require_relative '../knime/util/knime-node'
 require_relative '../phema-utils/mappings'
