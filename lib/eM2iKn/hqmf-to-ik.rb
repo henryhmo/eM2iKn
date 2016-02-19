@@ -113,6 +113,16 @@ module PhEMA
 
         end
 
+        # TODO add pdo event list labels
+        @sdc_nodes_id.each do |dc_id, sdc_node_id|
+          pdo_knode = PhEMA::KNIME::KnimeNode.new("lib/qdm-knime/qdm-knime-guides/event_list_pdo.json")
+          pdo_knode.update_configs({"node_text" => dc_id})
+          sdc_node_coord = @knime.get_node_coordinator(sdc_node_id)
+          pdo_node_id = @knime.add_knime_node(pdo_knode, sdc_node_coord[:x] + 1, sdc_node_coord[:y])
+          sdc_knode = @knime.get_knime_node_object(sdc_node_id)
+          @knime.add_knime_connection(sdc_node_id, pdo_node_id, sdc_knode.find_outport("encounter_set"), "1")
+        end
+
         puts "End of source data criteria"
 
 
@@ -249,8 +259,16 @@ module PhEMA
                 ipp_slots << re_hash[:ipp_slot_id]
               end
 
-              relay_node_id = add_relay_connection_backward(re_hash[:node_id], "0", pop_key)
-              @knime.set_node_coordinator(relay_node_id, pcs_start_col + 2, pcs_row)
+              #relay_node_id = add_relay_connection_backward(re_hash[:node_id], "0", pop_key)
+              #@knime.set_node_coordinator(relay_node_id, pcs_start_col + 2, pcs_row)
+
+              # TODO use pdo to replace relay
+              pdo_knode = PhEMA::KNIME::KnimeNode.new("lib/qdm-knime/qdm-knime-guides/patient_list_pdo.json")
+              pdo_knode.update_configs({"node_text" => pop_key})
+              pdo_node_id = @knime.add_knime_node(pdo_knode, pcs_start_col + 2, pcs_row)
+              pop_knode = @knime.get_knime_node_object(re_hash[:node_id])
+              @knime.add_knime_connection(re_hash[:node_id], pdo_node_id, pop_knode.find_outport("patient_set"), "1")
+
               pcs_row = re_hash[:y] + 2
 
             end

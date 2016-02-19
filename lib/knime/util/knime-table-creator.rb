@@ -8,7 +8,7 @@ module PhEMA
   module KNIME
     class KnimeTableCreator < KnimeNode
       @@new_col_prop_template = open("lib/knime/xml_templates/table_creator_column_properties.erb").read
-      @@ns = {"xmlns": "http://www.knime.org/2008/09/XMLConfig"}
+      @@ns = {"xmlns" => "http://www.knime.org/2008/09/XMLConfig"}
 
       def initialize(config_path = "lib/qdm-knime/qdm-knime-guides/knime_nodes/table_creator.json")
         super
