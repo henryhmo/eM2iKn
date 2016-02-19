@@ -163,6 +163,7 @@ module PhEMA
 
 
         FileUtils.mkdir(wf_dir);
+        FileUtils.mkdir_p(dest_dir)
         # puts wf_dir
 
         # open("#{wf_dir}/.project", "w") {|f| f.puts(project_xml.to_xml)}
