@@ -7,7 +7,7 @@
 </config>
 <config key="model">
 <config key="rowIndices">
-<entry key="array-size" type="xint" value="12"/>
+<entry key="array-size" type="xint" value="14"/>
 <entry key="0" type="xint" value="0"/>
 <entry key="1" type="xint" value="0"/>
 <entry key="2" type="xint" value="1"/>
@@ -20,9 +20,11 @@
 <entry key="9" type="xint" value="4"/>
 <entry key="10" type="xint" value="5"/>
 <entry key="11" type="xint" value="5"/>
+<entry key="12" type="xint" value="6"/>
+<entry key="13" type="xint" value="6"/>
 </config>
 <config key="columnIndices">
-<entry key="array-size" type="xint" value="12"/>
+<entry key="array-size" type="xint" value="14"/>
 <entry key="0" type="xint" value="0"/>
 <entry key="1" type="xint" value="1"/>
 <entry key="2" type="xint" value="0"/>
@@ -35,11 +37,13 @@
 <entry key="9" type="xint" value="1"/>
 <entry key="10" type="xint" value="0"/>
 <entry key="11" type="xint" value="1"/>
+<entry key="12" type="xint" value="0"/>
+<entry key="13" type="xint" value="1"/>
 </config>
 <config key="values">
-<entry key="array-size" type="xint" value="12"/>
+<entry key="array-size" type="xint" value="14"/>
 <entry key="0" type="xstring" value="services_url"/>
-<entry key="1" type="xstring" value="http://10.151.13.94:9090/i2b2/services/"/>
+<entry key="1" type="xstring" value="http://192.168.1.106:9090/i2b2/services/"/>
 <entry key="2" type="xstring" value="domain"/>
 <entry key="3" type="xstring" value="i2b2demo"/>
 <entry key="4" type="xstring" value="username"/>
@@ -50,6 +54,8 @@
 <entry key="9" type="xstring" value="false"/>
 <entry key="10" type="xstring" value="measure_name"/>
 <entry key="11" type="xstring" value="i2b2 qdm demo"/>
+<entry key="12" type="xstring" value="project_id"/>
+<entry key="13" type="xstring" value="Demo"/>
 </config>
 <entry key="rowIdPrefix" type="xstring" value="Row"/>
 <entry key="rowIdSuffix" type="xstring" value=""/>
@@ -103,11 +109,11 @@
 <entry key="node-bundle-name" type="xstring" value="KNIME Base Nodes"/>
 <entry key="node-bundle-symbolic-name" type="xstring" value="org.knime.base"/>
 <entry key="node-bundle-vendor" type="xstring" value="KNIME GmbH, Konstanz, Germany"/>
-<entry key="node-bundle-version" type="xstring" value="3.1.0.v201512020906"/>
+<entry key="node-bundle-version" type="xstring" value="3.1.1.v201601211102"/>
 <entry key="node-feature-name" type="xstring" value="KNIME Core"/>
 <entry key="node-feature-symbolic-name" type="xstring" value="org.knime.features.base.feature.group"/>
 <entry key="node-feature-vendor" type="xstring" value="KNIME GmbH, Konstanz, Germany"/>
-<entry key="node-feature-version" type="xstring" value="3.1.0.v201512031304"/>
+<entry key="node-feature-version" type="xstring" value="3.1.1.v201601291159"/>
 <config key="factory_settings"/>
 <entry key="name" type="xstring" value="Table Creator"/>
 <entry key="hasContent" type="xboolean" value="false"/>

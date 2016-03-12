@@ -130,11 +130,11 @@
 <entry key="node-bundle-name" type="xstring" value="REST Client Node extension for KNIME Workbench"/>
 <entry key="node-bundle-symbolic-name" type="xstring" value="com.cenix.krest.nodes"/>
 <entry key="node-bundle-vendor" type="xstring" value="Cenix Bioscience"/>
-<entry key="node-bundle-version" type="xstring" value="1.2.800.201510161851"/>
+<entry key="node-bundle-version" type="xstring" value="1.2.800.v201510161851"/>
 <entry key="node-feature-name" type="xstring" value="REST Client"/>
 <entry key="node-feature-symbolic-name" type="xstring" value="com.cenix.krest.nodes.feature.feature.group"/>
 <entry key="node-feature-vendor" type="xstring" value="Cenix BioScience"/>
-<entry key="node-feature-version" type="xstring" value="1.2.800.201510161851"/>
+<entry key="node-feature-version" type="xstring" value="1.2.800.v201510161851"/>
 <config key="factory_settings"/>
 <entry key="name" type="xstring" value="GET Resource"/>
 <entry key="hasContent" type="xboolean" value="false"/>

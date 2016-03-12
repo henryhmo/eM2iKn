@@ -7,7 +7,7 @@
 </config>
 <config key="model">
 <config key="rowIndices">
-<entry key="array-size" type="xint" value="22"/>
+<entry key="array-size" type="xint" value="24"/>
 <entry key="0" type="xint" value="0"/>
 <entry key="1" type="xint" value="0"/>
 <entry key="2" type="xint" value="1"/>
@@ -30,9 +30,11 @@
 <entry key="19" type="xint" value="9"/>
 <entry key="20" type="xint" value="10"/>
 <entry key="21" type="xint" value="10"/>
+<entry key="22" type="xint" value="11"/>
+<entry key="23" type="xint" value="11"/>
 </config>
 <config key="columnIndices">
-<entry key="array-size" type="xint" value="22"/>
+<entry key="array-size" type="xint" value="24"/>
 <entry key="0" type="xint" value="0"/>
 <entry key="1" type="xint" value="1"/>
 <entry key="2" type="xint" value="0"/>
@@ -55,9 +57,11 @@
 <entry key="19" type="xint" value="1"/>
 <entry key="20" type="xint" value="0"/>
 <entry key="21" type="xint" value="1"/>
+<entry key="22" type="xint" value="0"/>
+<entry key="23" type="xint" value="1"/>
 </config>
 <config key="values">
-<entry key="array-size" type="xint" value="22"/>
+<entry key="array-size" type="xint" value="24"/>
 <entry key="0" type="xstring" value="domain"/>
 <entry key="1" type="xstring" value="/ns6:request/message_header/security/domain"/>
 <entry key="2" type="xstring" value="username"/>
@@ -80,6 +84,8 @@
 <entry key="19" type="xstring" value="/ns6:request/message_body/ns4:request/query_definition/panel/total_item_occurrences"/>
 <entry key="20" type="xstring" value="invert"/>
 <entry key="21" type="xstring" value="/ns6:request/message_body/ns4:request/query_definition/panel/invert"/>
+<entry key="22" type="xstring" value="project_id"/>
+<entry key="23" type="xstring" value="/ns6:request/message_header/project_id"/>
 </config>
 <entry key="rowIdPrefix" type="xstring" value="Row"/>
 <entry key="rowIdSuffix" type="xstring" value=""/>
@@ -133,11 +139,11 @@
 <entry key="node-bundle-name" type="xstring" value="KNIME Base Nodes"/>
 <entry key="node-bundle-symbolic-name" type="xstring" value="org.knime.base"/>
 <entry key="node-bundle-vendor" type="xstring" value="KNIME GmbH, Konstanz, Germany"/>
-<entry key="node-bundle-version" type="xstring" value="3.1.0.v201512020906"/>
+<entry key="node-bundle-version" type="xstring" value="3.1.1.v201601211102"/>
 <entry key="node-feature-name" type="xstring" value="KNIME Core"/>
 <entry key="node-feature-symbolic-name" type="xstring" value="org.knime.features.base.feature.group"/>
 <entry key="node-feature-vendor" type="xstring" value="KNIME GmbH, Konstanz, Germany"/>
-<entry key="node-feature-version" type="xstring" value="3.1.0.v201512031304"/>
+<entry key="node-feature-version" type="xstring" value="3.1.1.v201601291159"/>
 <config key="factory_settings"/>
 <entry key="name" type="xstring" value="Table Creator"/>
 <entry key="hasContent" type="xboolean" value="false"/>

@@ -32,21 +32,11 @@
 <entry key="EnabledStatus" type="xboolean" value="true"/>
 </config>
 <entry key="enableHilite" type="xboolean" value="false"/>
-<config key="valueDelimiter_Internals">
-<entry key="SettingsModelID" type="xstring" value="SMID_string"/>
-<entry key="EnabledStatus" type="xboolean" value="true"/>
-</config>
-<entry key="valueDelimiter" type="xstring" value=", "/>
 <config key="sortInMemory_Internals">
 <entry key="SettingsModelID" type="xstring" value="SMID_boolean"/>
 <entry key="EnabledStatus" type="xboolean" value="true"/>
 </config>
 <entry key="sortInMemory" type="xboolean" value="false"/>
-<config key="columnNamePolicy_Internals">
-<entry key="SettingsModelID" type="xstring" value="SMID_string"/>
-<entry key="EnabledStatus" type="xboolean" value="true"/>
-</config>
-<entry key="columnNamePolicy" type="xstring" value="Aggregation method (column name)"/>
 <config key="aggregationColumn">
 <config key="columnNames">
 <entry key="array-size" type="xint" value="0"/>
@@ -64,6 +54,11 @@
 <config key="aggregationOperatorSettings"/>
 <config key="patternAggregators"/>
 <config key="dataTypeAggregators"/>
+<config key="columnNamePolicy_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<entry key="columnNamePolicy" type="xstring" value="Aggregation method (column name)"/>
 <config key="retainOrder_Internals">
 <entry key="SettingsModelID" type="xstring" value="SMID_boolean"/>
 <entry key="EnabledStatus" type="xboolean" value="true"/>
@@ -74,6 +69,11 @@
 <entry key="EnabledStatus" type="xboolean" value="true"/>
 </config>
 <entry key="inMemory" type="xboolean" value="false"/>
+<config key="valueDelimiter_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<entry key="valueDelimiter" type="xstring" value=", "/>
 <config key="nodeVersion_Internals">
 <entry key="SettingsModelID" type="xstring" value="SMID_integer"/>
 <entry key="EnabledStatus" type="xboolean" value="true"/>
@@ -105,11 +105,11 @@
 <entry key="node-bundle-name" type="xstring" value="KNIME Base Nodes"/>
 <entry key="node-bundle-symbolic-name" type="xstring" value="org.knime.base"/>
 <entry key="node-bundle-vendor" type="xstring" value="KNIME GmbH, Konstanz, Germany"/>
-<entry key="node-bundle-version" type="xstring" value="3.1.0.v201512020906"/>
+<entry key="node-bundle-version" type="xstring" value="3.1.1.v201601211102"/>
 <entry key="node-feature-name" type="xstring" value="KNIME Core"/>
 <entry key="node-feature-symbolic-name" type="xstring" value="org.knime.features.base.feature.group"/>
 <entry key="node-feature-vendor" type="xstring" value="KNIME GmbH, Konstanz, Germany"/>
-<entry key="node-feature-version" type="xstring" value="3.1.0.v201512031304"/>
+<entry key="node-feature-version" type="xstring" value="3.1.1.v201601291159"/>
 <config key="factory_settings"/>
 <entry key="name" type="xstring" value="GroupBy"/>
 <entry key="hasContent" type="xboolean" value="false"/>
