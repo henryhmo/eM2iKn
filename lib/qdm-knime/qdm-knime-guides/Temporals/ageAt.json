@@ -1,0 +1,37 @@
+{
+	"name": "temporallyRelatedInformation",
+	"subset": "ageAt",
+	"archive_path": "lib/qdm-knime/node-archives/age_at_293",
+	"node_type": "MetaNode",
+	"node_is_meta": "true",
+	"is_i2b2": true,
+	"outports": {
+		"0": "patient_set",
+		"1": "encounter_set",
+		"2": "patient_count"
+	},
+	"operation_names": ["node_text", "age_range_low", "age_range_high"],
+	"files": [
+		"workflow.knime", "Row Filter (#87)/settings.xml"
+	],
+	"operations": {
+		"node_text": {
+			"file": "workflow.knime",
+			"xpath": "/xmlns:config/xmlns:config[@key='nodeAnnotation']/xmlns:entry[@key='text']/@value",
+			"ns": {"xmlns": "http://www.knime.org/2008/09/XMLConfig"},
+			"dest_type": "attribute"
+		},
+		"age_range_low": {
+			"file": "Row Filter (#87)/settings.xml",
+			"xpath": "/xmlns:config/xmlns:config[@key='model']/xmlns:config/xmlns:config[@key='lowerBound']/xmlns:config/xmlns:entry/@value",
+			"ns": {"xmlns": "http://www.knime.org/2008/09/XMLConfig"},
+			"dest_type": "attribute"
+		},
+		"age_range_high": {
+			"file": "Row Filter (#87)/settings.xml",
+			"xpath": "/xmlns:config/xmlns:config[@key='model']/xmlns:config/xmlns:config[@key='upperBound']/xmlns:config/xmlns:entry/@value",
+			"ns": {"xmlns": "http://www.knime.org/2008/09/XMLConfig"},
+			"dest_type": "attribute"
+		}
+	}
+}
