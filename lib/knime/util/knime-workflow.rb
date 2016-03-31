@@ -161,10 +161,12 @@ module PhEMA
         # xnode = project_xml.xpath("/projectDescription/name").first
         # xnode.content = @p_name
 
-
-        FileUtils.mkdir(wf_dir);
+        FileUtils.mkdir(wf_dir)
         FileUtils.mkdir_p(dest_dir)
         # puts wf_dir
+
+        # data folder under the workflow dir for knime://knime.workflow/
+        FileUtils.cp_r("lib/qdm-knime/node-archives/data", "#{wf_dir}/data")
 
         # open("#{wf_dir}/.project", "w") {|f| f.puts(project_xml.to_xml)}
 
