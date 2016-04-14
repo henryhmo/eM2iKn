@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.knime.org/2008/09/XMLConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.knime.org/2008/09/XMLConfig http://www.knime.org/XMLConfig_2008_09.xsd" key="settings.xml">
+<entry key="node_file" type="xstring" value="settings.xml"/>
+<config key="flow_stack"/>
+<config key="internal_node_subsettings">
+<entry key="memory_policy" type="xstring" value="CacheSmallInMemory"/>
+</config>
+<config key="model">
+<config key="rowIndices">
+<entry key="array-size" type="xint" value="1"/>
+<entry key="0" type="xint" value="0"/>
+</config>
+<config key="columnIndices">
+<entry key="array-size" type="xint" value="1"/>
+<entry key="0" type="xint" value="0"/>
+</config>
+<config key="values">
+<entry key="array-size" type="xint" value="1"/>
+<entry key="0" type="xstring" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;ns5:response xmlns:ns10=&quot;http://www.i2b2.org/xsd/hive/msg/result/1.1/&quot; xmlns:ns2=&quot;http://www.i2b2.org/xsd/hive/pdo/1.1/&quot; xmlns:ns3=&quot;http://www.i2b2.org/xsd/cell/crc/pdo/1.1/&quot; xmlns:ns4=&quot;http://www.i2b2.org/xsd/cell/crc/psm/1.1/&quot; xmlns:ns5=&quot;http://www.i2b2.org/xsd/hive/msg/1.1/&quot; xmlns:ns6=&quot;http://www.i2b2.org/xsd/cell/crc/psm/querydefinition/1.1/&quot; xmlns:ns7=&quot;http://www.i2b2.org/xsd/cell/crc/psm/analysisdefinition/1.1/&quot; xmlns:ns8=&quot;http://www.i2b2.org/xsd/cell/pm/1.1/&quot; xmlns:ns9=&quot;http://www.i2b2.org/xsd/cell/ont/1.1/&quot;&gt;     &lt;message_header&gt;         &lt;i2b2_version_compatible&gt;1.1&lt;/i2b2_version_compatible&gt;         &lt;hl7_version_compatible&gt;2.4&lt;/hl7_version_compatible&gt;         &lt;sending_application&gt;             &lt;application_name&gt;CRC Cell&lt;/application_name&gt;             &lt;application_version&gt;1.7&lt;/application_version&gt;         &lt;/sending_application&gt;         &lt;sending_facility&gt;             &lt;facility_name&gt;i2b2 Hive&lt;/facility_name&gt;         &lt;/sending_facility&gt;         &lt;receiving_application&gt;             &lt;application_name&gt;i2b2_QueryTool&lt;/application_name&gt;             &lt;application_version&gt;1.6&lt;/application_version&gt;         &lt;/receiving_application&gt;         &lt;receiving_facility&gt;             &lt;facility_name&gt;i2b2 Hive&lt;/facility_name&gt;         &lt;/receiving_facility&gt;         &lt;message_control_id&gt;             &lt;instance_num&gt;1&lt;/instance_num&gt;         &lt;/message_control_id&gt;         &lt;project_id&gt;nmedw&lt;/project_id&gt;     &lt;/message_header&gt;     &lt;response_header&gt;         &lt;info&gt;Log information&lt;/info&gt;         &lt;result_status&gt;             &lt;status type=&quot;DONE&quot;&gt;DONE&lt;/status&gt;             &lt;polling_url interval_ms=&quot;100&quot;&gt;             &lt;/polling_url&gt;         &lt;/result_status&gt;     &lt;/response_header&gt;     &lt;message_body&gt;         &lt;ns4:response xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:type=&quot;ns4:master_instance_result_responseType&quot;&gt;             &lt;status&gt;                 &lt;condition type=&quot;RUNNING&quot;&gt;RUNNING&lt;/condition&gt;             &lt;/status&gt;             &lt;query_master&gt;                 &lt;query_master_id&gt;2967&lt;/query_master_id&gt;                 &lt;name&gt;i2b2 qdm demo @ Tue Mar 15 21:50:58 CDT 2016&lt;/name&gt;                 &lt;user_id&gt;phema&lt;/user_id&gt;                 &lt;group_id&gt;nmedw&lt;/group_id&gt;                 &lt;create_date&gt;2016-03-15T22:01:41.613-05:00&lt;/create_date&gt;                 &lt;request_xml&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&amp;gt; &amp;lt;ns3:query_definition xmlns:ns2=&quot;http://www.i2b2.org/xsd/cell/crc/psm/1.1/&quot; xmlns:ns4=&quot;http://www.i2b2.org/xsd/cell/crc/psm/analysisdefinition/1.1/&quot; xmlns:ns3=&quot;http://www.i2b2.org/xsd/cell/crc/psm/querydefinition/1.1/&quot;&amp;gt;     &amp;lt;query_name&amp;gt;i2b2 qdm demo @ Tue Mar 15 21:50:58 CDT 2016&amp;lt;/query_name&amp;gt;     &amp;lt;query_timing&amp;gt;ANY&amp;lt;/query_timing&amp;gt;     &amp;lt;specificity_scale&amp;gt;0&amp;lt;/specificity_scale&amp;gt;     &amp;lt;panel&amp;gt;         &amp;lt;panel_number&amp;gt;1&amp;lt;/panel_number&amp;gt;         &amp;lt;panel_timing&amp;gt;ANY&amp;lt;/panel_timing&amp;gt;         &amp;lt;panel_accuracy_scale&amp;gt;100&amp;lt;/panel_accuracy_scale&amp;gt;         &amp;lt;invert&amp;gt;0&amp;lt;/invert&amp;gt;         &amp;lt;total_item_occurrences&amp;gt;1&amp;lt;/total_item_occurrences&amp;gt;         &amp;lt;item&amp;gt;             &amp;lt;hlevel&amp;gt;0&amp;lt;/hlevel&amp;gt;             &amp;lt;item_key&amp;gt;patient_set_enc_id:5283&amp;lt;/item_key&amp;gt;             &amp;lt;item_is_synonym&amp;gt;false&amp;lt;/item_is_synonym&amp;gt;         &amp;lt;/item&amp;gt;     &amp;lt;/panel&amp;gt;     &amp;lt;panel&amp;gt;         &amp;lt;panel_number&amp;gt;2&amp;lt;/panel_number&amp;gt;         &amp;lt;panel_timing&amp;gt;ANY&amp;lt;/panel_timing&amp;gt;         &amp;lt;panel_accuracy_scale&amp;gt;100&amp;lt;/panel_accuracy_scale&amp;gt;         &amp;lt;invert&amp;gt;0&amp;lt;/invert&amp;gt;         &amp;lt;total_item_occurrences&amp;gt;1&amp;lt;/total_item_occurrences&amp;gt;         &amp;lt;item&amp;gt;             &amp;lt;hlevel&amp;gt;0&amp;lt;/hlevel&amp;gt;             &amp;lt;item_key&amp;gt;patient_set_coll_id:5249&amp;lt;/item_key&amp;gt;             &amp;lt;item_is_synonym&amp;gt;false&amp;lt;/item_is_synonym&amp;gt;         &amp;lt;/item&amp;gt;     &amp;lt;/panel&amp;gt; &amp;lt;/ns3:query_definition&amp;gt; &lt;/request_xml&gt;             &lt;/query_master&gt;             &lt;query_instance&gt;                 &lt;query_instance_id&gt;2816&lt;/query_instance_id&gt;                 &lt;query_master_id&gt;2967&lt;/query_master_id&gt;                 &lt;user_id&gt;phema&lt;/user_id&gt;                 &lt;group_id&gt;nmedw&lt;/group_id&gt;                 &lt;start_date&gt;2016-03-15T22:01:41.687-05:00&lt;/start_date&gt;                 &lt;message&gt;                 &lt;/message&gt;                 &lt;query_status_type&gt;                     &lt;status_type_id&gt;5&lt;/status_type_id&gt;                     &lt;name&gt;INCOMPLETE&lt;/name&gt;                     &lt;description&gt;INCOMPLETE&lt;/description&gt;                 &lt;/query_status_type&gt;             &lt;/query_instance&gt;             &lt;query_result_instance&gt;                 &lt;result_instance_id&gt;5297&lt;/result_instance_id&gt;                 &lt;query_instance_id&gt;2816&lt;/query_instance_id&gt;                 &lt;query_result_type&gt;                     &lt;result_type_id&gt;1&lt;/result_type_id&gt;                     &lt;name&gt;PATIENTSET&lt;/name&gt;                     &lt;display_type&gt;LIST&lt;/display_type&gt;                     &lt;visual_attribute_type&gt;LA&lt;/visual_attribute_type&gt;                     &lt;description&gt;Patient set&lt;/description&gt;                 &lt;/query_result_type&gt;                 &lt;set_size&gt;0&lt;/set_size&gt;                 &lt;start_date&gt;2016-03-15T22:01:41.710-05:00&lt;/start_date&gt;                 &lt;query_status_type&gt;                     &lt;status_type_id&gt;1&lt;/status_type_id&gt;                     &lt;name&gt;QUEUED&lt;/name&gt;                     &lt;description&gt; WAITING IN QUEUE TO START PROCESS&lt;/description&gt;                 &lt;/query_status_type&gt;             &lt;/query_result_instance&gt;             &lt;query_result_instance&gt;                 &lt;result_instance_id&gt;5298&lt;/result_instance_id&gt;                 &lt;query_instance_id&gt;2816&lt;/query_instance_id&gt;                 &lt;query_result_type&gt;                     &lt;result_type_id&gt;2&lt;/result_type_id&gt;                     &lt;name&gt;PATIENT_ENCOUNTER_SET&lt;/name&gt;                     &lt;display_type&gt;LIST&lt;/display_type&gt;                     &lt;visual_attribute_type&gt;LH&lt;/visual_attribute_type&gt;                     &lt;description&gt;Encounter set&lt;/description&gt;                 &lt;/query_result_type&gt;                 &lt;set_size&gt;0&lt;/set_size&gt;                 &lt;start_date&gt;2016-03-15T22:01:41.723-05:00&lt;/start_date&gt;                 &lt;query_status_type&gt;                     &lt;status_type_id&gt;1&lt;/status_type_id&gt;                     &lt;name&gt;QUEUED&lt;/name&gt;                     &lt;description&gt; WAITING IN QUEUE TO START PROCESS&lt;/description&gt;                 &lt;/query_status_type&gt;             &lt;/query_result_instance&gt;             &lt;query_result_instance&gt;                 &lt;result_instance_id&gt;5299&lt;/result_instance_id&gt;                 &lt;query_instance_id&gt;2816&lt;/query_instance_id&gt;                 &lt;query_result_type&gt;                     &lt;result_type_id&gt;4&lt;/result_type_id&gt;                     &lt;name&gt;PATIENT_COUNT_XML&lt;/name&gt;                     &lt;display_type&gt;CATNUM&lt;/display_type&gt;                     &lt;visual_attribute_type&gt;LA&lt;/visual_attribute_type&gt;                     &lt;description&gt;Number of patients&lt;/description&gt;                 &lt;/query_result_type&gt;                 &lt;set_size&gt;0&lt;/set_size&gt;                 &lt;obfuscate_method&gt;                 &lt;/obfuscate_method&gt;                 &lt;start_date&gt;2016-03-15T22:01:41.737-05:00&lt;/start_date&gt;                 &lt;end_date&gt;2016-03-15T22:01:41.757-05:00&lt;/end_date&gt;                 &lt;message&gt;                 &lt;/message&gt;                 &lt;query_status_type&gt;                     &lt;status_type_id&gt;2&lt;/status_type_id&gt;                     &lt;name&gt;PROCESSING&lt;/name&gt;                     &lt;description&gt;PROCESSING&lt;/description&gt;                 &lt;/query_status_type&gt;             &lt;/query_result_instance&gt;         &lt;/ns4:response&gt;     &lt;/message_body&gt; &lt;/ns5:response&gt;"/>
+</config>
+<entry key="rowIdPrefix" type="xstring" value="Row"/>
+<entry key="rowIdSuffix" type="xstring" value=""/>
+<entry key="rowIdStartValue" type="xint" value="0"/>
+<entry key="highlightOutputTable" type="xboolean" value="false"/>
+<config key="columnProperties">
+<config key="0">
+<entry key="UserSetValues" type="xboolean" value="true"/>
+<entry key="MissValuePattern" type="xstring" value=""/>
+<entry key="FormatParameter" type="xstring" value=""/>
+<entry key="ReadPossValsFromFile" type="xboolean" value="false"/>
+<entry key="SkipThisColumn" type="xboolean" value="false"/>
+<entry key="ColumnName" type="xstring" value="Representation"/>
+<config key="ColumnClass">
+<entry key="cell_class" type="xstring" value="org.knime.core.data.def.StringCell"/>
+<entry key="is_null" type="xboolean" value="false"/>
+</config>
+</config>
+</config>
+</config>
+<config key="nodeAnnotation">
+<entry key="text" type="xstring" value="Test"/>
+<entry key="bgcolor" type="xint" value="16777215"/>
+<entry key="x-coordinate" type="xint" value="136"/>
+<entry key="y-coordinate" type="xint" value="453"/>
+<entry key="width" type="xint" value="107"/>
+<entry key="height" type="xint" value="12"/>
+<entry key="alignment" type="xstring" value="CENTER"/>
+<entry key="borderSize" type="xint" value="0"/>
+<entry key="borderColor" type="xint" value="16777215"/>
+<entry key="defFontSize" type="xint" value="11"/>
+<entry key="annotation-version" type="xint" value="20151123"/>
+<config key="styles"/>
+</config>
+<entry key="customDescription" type="xstring" isnull="true" value=""/>
+<entry key="state" type="xstring" value="CONFIGURED"/>
+<entry key="factory" type="xstring" value="org.knime.base.node.io.tablecreator.TableCreator2NodeFactory"/>
+<entry key="node-name" type="xstring" value="Table Creator"/>
+<entry key="node-bundle-name" type="xstring" value="KNIME Base Nodes"/>
+<entry key="node-bundle-symbolic-name" type="xstring" value="org.knime.base"/>
+<entry key="node-bundle-vendor" type="xstring" value="KNIME GmbH, Konstanz, Germany"/>
+<entry key="node-bundle-version" type="xstring" value="3.1.1.v201601211102"/>
+<entry key="node-feature-name" type="xstring" value="KNIME Core"/>
+<entry key="node-feature-symbolic-name" type="xstring" value="org.knime.features.base.feature.group"/>
+<entry key="node-feature-vendor" type="xstring" value="KNIME GmbH, Konstanz, Germany"/>
+<entry key="node-feature-version" type="xstring" value="3.1.1.v201601291159"/>
+<config key="factory_settings"/>
+<entry key="name" type="xstring" value="Table Creator"/>
+<entry key="hasContent" type="xboolean" value="false"/>
+<entry key="isInactive" type="xboolean" value="false"/>
+<config key="ports">
+<config key="port_1">
+<entry key="index" type="xint" value="1"/>
+<entry key="port_dir_location" type="xstring" isnull="true" value=""/>
+</config>
+</config>
+<config key="filestores">
+<entry key="file_store_location" type="xstring" isnull="true" value=""/>
+<entry key="file_store_id" type="xstring" isnull="true" value=""/>
+</config>
+</config>
