@@ -7,7 +7,7 @@
 </config>
 <config key="model">
 <config key="rowIndices">
-<entry key="array-size" type="xint" value="20"/>
+<entry key="array-size" type="xint" value="22"/>
 <entry key="0" type="xint" value="0"/>
 <entry key="1" type="xint" value="0"/>
 <entry key="2" type="xint" value="1"/>
@@ -28,9 +28,11 @@
 <entry key="17" type="xint" value="8"/>
 <entry key="18" type="xint" value="9"/>
 <entry key="19" type="xint" value="9"/>
+<entry key="20" type="xint" value="10"/>
+<entry key="21" type="xint" value="10"/>
 </config>
 <config key="columnIndices">
-<entry key="array-size" type="xint" value="20"/>
+<entry key="array-size" type="xint" value="22"/>
 <entry key="0" type="xint" value="0"/>
 <entry key="1" type="xint" value="1"/>
 <entry key="2" type="xint" value="0"/>
@@ -51,9 +53,11 @@
 <entry key="17" type="xint" value="1"/>
 <entry key="18" type="xint" value="0"/>
 <entry key="19" type="xint" value="1"/>
+<entry key="20" type="xint" value="0"/>
+<entry key="21" type="xint" value="1"/>
 </config>
 <config key="values">
-<entry key="array-size" type="xint" value="20"/>
+<entry key="array-size" type="xint" value="22"/>
 <entry key="0" type="xstring" value="domain"/>
 <entry key="1" type="xstring" value="/ns6:request/message_header/security/domain"/>
 <entry key="2" type="xstring" value="username"/>
@@ -74,6 +78,8 @@
 <entry key="17" type="xstring" value="/ns6:request/message_body/ns4:request/query_definition/query_name"/>
 <entry key="18" type="xstring" value="project_id"/>
 <entry key="19" type="xstring" value="/ns6:request/message_header/project_id"/>
+<entry key="20" type="xstring" value="total_item_occurrences"/>
+<entry key="21" type="xstring" value="/ns6:request/message_body/ns4:request/query_definition/panel/total_item_occurrences"/>
 </config>
 <entry key="rowIdPrefix" type="xstring" value="Row"/>
 <entry key="rowIdSuffix" type="xstring" value=""/>

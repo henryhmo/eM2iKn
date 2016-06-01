@@ -10,15 +10,22 @@
 		"1": "encounter_set",
 		"2": "patient_count"
 	},
-	"operation_names": ["node_text", "oid_node_text", "oid_filter"],
+	"operation_names": ["node_text", "total_item_occurrences", "oid_node_text", "oid_filter"],
 	"files": [
 		"workflow.knime",
+		"Table Creator (#27)/settings.xml",
 		"Row Filter (#79)/settings.xml"
 	],
 	"operations": {
 		"node_text": {
 			"file": "workflow.knime",
 			"xpath": "/xmlns:config/xmlns:config[@key='nodeAnnotation']/xmlns:entry[@key='text']/@value",
+			"ns": {"xmlns": "http://www.knime.org/2008/09/XMLConfig"},
+			"dest_type": "attribute"
+		},
+		"total_item_occurrences": {
+			"file": "Table Creator (#27)/settings.xml",
+			"xpath": "/xmlns:config/xmlns:config[@key='model']/xmlns:config[@key='values']/xmlns:entry[@key='1']/@value",
 			"ns": {"xmlns": "http://www.knime.org/2008/09/XMLConfig"},
 			"dest_type": "attribute"
 		},
