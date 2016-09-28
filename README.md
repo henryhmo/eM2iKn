@@ -1,8 +1,6 @@
 # EM2iKn
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/eM2iKn`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Allows you to take an HQMF definition for a quality measure or a phenotype, and generates a KNIME workflow that can execute against an i2b2 instance.
 
 ## Installation
 
@@ -22,7 +20,17 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To run from the command line:
+
+```rake phema:generate[path,name,output_dir]```
+
+Where path is the path to the HQMF file representing your phenotype or quality measures, name is what you would like to name the resulting workflow, and output_dir is the directory where the workflow should be generated.
+
+E.g.:
+
+```rake phema:generate[./example/input.xml,Example,./tmp]```
+
+Will create a new workflow in ./tmp/Example which is based on the data elements and logic in ./example/input.xml.
 
 ## Development
 
@@ -32,5 +40,5 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/eM2iKn.
+Bug reports and pull requests are welcome on GitHub at https://github.com/phema/eM2iKn.
 
